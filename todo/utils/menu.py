@@ -1,3 +1,4 @@
+# coding: utf-8
 """
 Interactive menu to select items
 """

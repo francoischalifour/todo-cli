@@ -1,6 +1,6 @@
 # Todo CLI
 
-> *Todo* is command line tool that manages the task lists of your projects.
+> *Todo* is Python3 command line tool that manages the To-Do lists of your projects.
 
 ![Todo screenshot](https://cloud.githubusercontent.com/assets/6137112/15250305/732b4056-1924-11e6-8609-d1918e902b4b.png)
 
@@ -88,13 +88,13 @@ todo search "keyword"
 
 ## Install
 
-```
-pip install todo-cli
+Clone the repo and run:
+
+```sh
+pip install .
 ```
 
-## Dev
-
-To create a virtual environment:
+Create a virtual environment:
 
 ```sh
 virtualenv -p python3 venv
@@ -105,6 +105,8 @@ Activate the new environment:
 ```sh
 source venv/bin/activate
 ```
+
+You're ready to go!
 
 ## License
 

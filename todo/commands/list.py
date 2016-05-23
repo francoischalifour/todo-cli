@@ -89,7 +89,6 @@ class ListCommand(Command):
                     reset=Style.RESET_ALL,
                 )
             )
-            print('Possible reason: the project file is damaged')
             sys.exit(1)
 
         self.print_project_name(name)

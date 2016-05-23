@@ -7,11 +7,11 @@
         },
         {
             "done": false,
-            "title": "Make executable"
+            "title": "Add parser"
         },
         {
-            "done": false,
-            "title": "Add parser"
+            "done": true,
+            "title": "Make executable"
         },
         {
             "done": true,
