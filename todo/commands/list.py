@@ -7,6 +7,7 @@ import sys
 import json
 
 from todo.commands.base import Command
+from todo.utils.compatibility import safe_print
 from todo.utils.styles import Fore, Back, Style
 
 
@@ -24,7 +25,6 @@ class ListCommand(Command):
             )
         )
 
-
     def print_todos(self, todos=[]):
         checked = lambda t: t.get('done')
         for todo in sorted(todos, key=checked):
@@ -32,7 +32,7 @@ class ListCommand(Command):
             status = ' ✓ ' if is_done else ' x '
             color = Fore.GREEN if is_done else Style.RESET_ALL
             background = Back.GREEN if is_done else Back.WHITE
-            print(
+            safe_print(
                 ' {black}{background}{status}{reset}  {color}{title}{reset}'
                 .format(
                     status=status,
@@ -47,14 +47,14 @@ class ListCommand(Command):
 
     def print_list(self, todos=[]):
         if not todos:
-            print(
+            safe_print(
             '{green}Congrats! 🙂{reset}'
             .format(
                 green=Fore.GREEN,
                 reset=Style.RESET_ALL,
                 )
             )
-            print('There\'s nothing else to do. 🎉')
+            safe_print('There\'s nothing else to do. 🎉')
         else:
             self.print_todos(todos)
 

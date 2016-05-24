@@ -12,8 +12,9 @@ from todo.commands import commands_dict
 
 def check_python_version():
     if sys.version_info[0] < 3:
+        from todo.utils.compatibility import safe_print
         from todo.utils.styles import Fore, Style
-        sys.stderr.write(
+        safe_print(
 '''
 {fail}{bold}\tUh oh!{reset}
 {warning}You need Python 3 to use this program. 😕

@@ -4,7 +4,7 @@
 
 ![Todo workflow](https://cloud.githubusercontent.com/assets/6137112/15512100/8da8cc10-21de-11e6-9d16-3d41654aaa7d.gif)
 
-*Built with Python3 for Unix systems.*
+*Built with Python3.*
 
 ## Elevator Pitch
 

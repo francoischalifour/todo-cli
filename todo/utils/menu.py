@@ -3,7 +3,10 @@
 Interactive menu to select items
 """
 
-import curses
+try:
+        import curses
+except ImportError:
+        pass
 
 
 EXIT_KEYS = [113, 27, 127, 10]
@@ -11,7 +14,27 @@ SPACE_KEY = 32
 
 
 def show_options(title=None, subtitle=None, items=[], callback=None):
-    screen = curses.initscr()
+    try:
+            screen = curses.initscr()
+    except NameError:
+            import sys
+            from todo.utils.styles import Fore, Style
+            print(
+'''
+{fail}{bold}\tSorry!{reset}
+{warning}This command is not supported by your system.
+{info}Learn more: {blue}https://github.com/francoischalifour/todo-cli{reset}
+'''
+                .format(
+                    fail=Fore.FAIL,
+                    bold=Style.BOLD,
+                    warning=Fore.WARNING,
+                    info=Fore.INFO,
+                    blue=Fore.BLUE,
+                    reset=Style.RESET_ALL,
+                )
+            )
+            sys.exit(1)
 
     checked = lambda i: i.get('done')
     items_sorted = sorted(items, key=checked)
