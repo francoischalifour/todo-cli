@@ -10,7 +10,31 @@ from todo.parser import Parser
 from todo.commands import commands_dict
 
 
+def check_python_version():
+    if sys.version_info[0] < 3:
+        from todo.utils.styles import Fore, Style
+        sys.stderr.write(
+'''
+{fail}{bold}\tUh oh!{reset}
+{warning}You need Python 3 to use this program. 😕
+{info}Download Python: {blue}https://www.python.org/downloads
+{info}Learn more: {blue}https://github.com/francoischalifour/todo-cli{reset}
+'''
+            .format(
+                fail=Fore.FAIL,
+                bold=Style.BOLD,
+                warning=Fore.WARNING,
+                info=Fore.INFO,
+                blue=Fore.BLUE,
+                reset=Style.RESET_ALL,
+            )
+        )
+        sys.exit(1)
+
+
 def main(args=None):
+    check_python_version()
+
     parser = Parser()
 
     if args is None:
