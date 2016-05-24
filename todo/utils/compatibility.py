@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import re
 
 def safe_print(s):
     """Encodes the output in utf-8 for Windows console"""

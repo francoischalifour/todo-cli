@@ -13,6 +13,7 @@ from todo.utils.styles import Fore, Back, Style
 
 class ListCommand(Command):
     def print_project_name(self, name):
+        """Prints the name of the project"""
         if not name:
             name = self.UNTITLED_NAME
         print(
@@ -26,9 +27,10 @@ class ListCommand(Command):
         )
 
     def print_todos(self, todos=[]):
-        checked = lambda t: t.get('done')
+        """Print all the todos"""
+        checked = lambda t: t['done']
         for todo in sorted(todos, key=checked):
-            is_done = todo.get('done')
+            is_done = todo['done']
             status = ' ✓ ' if is_done else ' x '
             color = Fore.GREEN if is_done else Style.RESET_ALL
             background = Back.GREEN if is_done else Back.WHITE
@@ -36,7 +38,7 @@ class ListCommand(Command):
                 ' {black}{background}{status}{reset}  {color}{title}{reset}'
                 .format(
                     status=status,
-                    title=todo.get('title'),
+                    title=todo['title'],
                     color=color,
                     black=Fore.BLACK,
                     background=background,
@@ -46,12 +48,13 @@ class ListCommand(Command):
 
 
     def print_list(self, todos=[]):
+        """Prints the entire todo list with information"""
         if not todos:
             safe_print(
-            '{green}Congrats! 🙂{reset}'
-            .format(
-                green=Fore.GREEN,
-                reset=Style.RESET_ALL,
+                '{green}Congrats! 🙂{reset}'
+                .format(
+                    green=Fore.GREEN,
+                    reset=Style.RESET_ALL,
                 )
             )
             safe_print('There\'s nothing else to do. 🎉')
@@ -59,7 +62,7 @@ class ListCommand(Command):
             self.print_todos(todos)
 
             no_items = len(todos)
-            no_checked = len([t for t in todos if t.get('done') ])
+            no_checked = len([t for t in todos if t['done'] ])
             print(
                 '{info}{no_items:>2} items: {no_checked} done, {no_unchecked} undone{reset}'
                 .format(
@@ -76,14 +79,14 @@ class ListCommand(Command):
         try:
             with open(self.PROJECT_FILE, 'r') as project_file:
                 data = json.load(project_file)
-                name = data.get('name')
-                todos = data.get('todos')
+                name = data['name']
+                todos = data['todos']
         except FileNotFoundError:
             self.ask_create_project()
             return
         except:
             print(
-                '{fail}An error has occured while listing the todos{reset}'
+                '{fail}An error has occured while listing the todos.{reset}'
                 .format(
                     fail=Fore.FAIL,
                     reset=Style.RESET_ALL,

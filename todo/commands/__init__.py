@@ -20,9 +20,11 @@ commands_dict = {
     'remove': Remove.run,
     'rm': Remove.run,
     'toggle': Toggle.run,
+    'tg': Toggle.run,
     'check': Check.run,
     'uncheck': Uncheck.run,
     'search': Search.run,
     'delete': Delete.run,
+    'del': Delete.run,
     'rename': Rename.run,
 }

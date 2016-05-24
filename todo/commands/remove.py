@@ -15,10 +15,11 @@ class RemoveCommand(ToggleCommand):
         return 'Remove items'
 
 
-    def handle_click(self, item_index, items):
-        "Removes the item clicked"
-        items.pop(item_index)
-        return items
+    def handle_click(self, todos, item_index):
+        """Returns the todo list without the todo of the given index"""
+        todos_removed = todos.copy()
+        todos_removed.pop(item_index)
+        return todos_removed
 
 
     def handle_search(self, todos, item):

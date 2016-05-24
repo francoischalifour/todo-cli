@@ -56,9 +56,7 @@ class InitCommand(Command):
         try:
             with open(self.PROJECT_FILE, 'w', encoding='utf-8') as project_file:
                 json.dump(
-                    {
-                        "name": name
-                    },
+                    { "name": name },
                     project_file,
                     sort_keys = True,
                     indent = 4,

@@ -10,7 +10,7 @@ from todo.utils.styles import Fore, Style
 
 class CheckCommand(ToggleCommand):
     def check_by_item(self, item):
-        """Makes a checked copie of the item"""
+        """Returns a checked copy of the item"""
         item_toggled = item.copy()
         item_toggled['done'] = True
         return item_toggled

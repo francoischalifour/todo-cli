@@ -16,13 +16,14 @@ class SearchCommand(ListCommand):
         if not search:
             return None
         search_lower = search.lower()
-        return [ todo for todo in todos if search_lower in todo.get('title').lower() ]
+        return [ todo for todo in todos if search_lower in todo['title'].lower() ]
 
 
     def print_results(self, todos=[]):
+        """Prints the result of the query"""
         if not todos:
             print(
-                '{info}No item found for "{query}"{reset}'
+                '{info}No item found for "{query}".{reset}'
                 .format(
                     query=self.get_command_attributes(),
                     info=Fore.INFO,
@@ -34,7 +35,7 @@ class SearchCommand(ListCommand):
 
             no_items = len(todos)
             print(
-                '{info}{no_items:>2} {items} found{reset}'
+                '{info}{no_items:>2} {items} found.{reset}'
                 .format(
                     no_items=no_items,
                     items=('items' if no_items > 1 else 'item'),
@@ -48,11 +49,13 @@ class SearchCommand(ListCommand):
         try:
             with open(self.PROJECT_FILE, 'r') as project_file:
                 data = json.load(project_file)
+                name = data['name']
+                todos = data['todos']
         except FileNotFoundError:
             self.project_not_found()
         except:
             print(
-                '{fail}An error has occured while listing the todos{reset}'
+                '{fail}An error has occured while searching the todos.{reset}'
                 .format(
                     fail=Fore.FAIL,
                     reset=Style.RESET_ALL,
@@ -60,8 +63,6 @@ class SearchCommand(ListCommand):
             )
             sys.exit(1)
 
-        name = data.get('name')
-        todos = data.get('todos')
         todos_found = self.get_matches(self.get_command_attributes(), todos)
 
         self.print_results(todos_found)

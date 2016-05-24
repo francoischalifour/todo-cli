@@ -4,13 +4,13 @@ import os
 import sys
 import json
 
-from todo.commands.check import CheckCommand
+from todo.commands.toggle import ToggleCommand
 from todo.utils.styles import Fore, Style
 
 
-class UncheckCommand(CheckCommand):
+class UncheckCommand(ToggleCommand):
     def check_by_item(self, item):
-        """Unchecks an item"""
+        """Returns an unchecked copy of the item"""
         item_toggled = item.copy()
         item_toggled['done'] = False
         return item_toggled

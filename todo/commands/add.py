@@ -9,21 +9,15 @@ from todo.utils.styles import Fore, Style
 
 
 class AddCommand(Command):
-    def update_todos(self, data):
+    def update_todos(self, todos=[]):
         """Creates a copy of the todo list with the new item"""
-        new_data = data.copy()
-
-        if not 'todos' in new_data:
-            new_data['todos'] = []
+        new_todos = todos.copy()
 
         for item in self.get_titles_input():
-            new_item = {
-                "done": False,
-                "title": item
-            }
-            new_data['todos'].append(new_item)
+            new_item = { "done": False, "title": item }
+            new_todos.append(new_item)
 
-        return new_data
+        return new_todos
 
 
     def run(self):
@@ -34,8 +28,28 @@ class AddCommand(Command):
             self.ask_create_project()
             self.run()
             return
+        except:
+            print(
+                '{fail}An error has occured while adding todos.{reset}'
+                .format(
+                    fail=Fore.FAIL,
+                    reset=Style.RESET_ALL,
+                )
+            )
+            sys.exit(1)
 
-        self.update_project(self.update_todos(data))
+        try: name = data['name']
+        except: name = self.UNTITLED_NAME
+
+        try: todos = data['todos']
+        except: todos = []
+
+        new_data = {
+            'name': name,
+            'todos': self.update_todos(todos)
+        }
+
+        self.update_project(new_data)
 
 
 Add = AddCommand()

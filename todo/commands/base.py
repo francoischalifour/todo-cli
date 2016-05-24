@@ -21,7 +21,7 @@ class Command:
         try:
             with open(self.PROJECT_FILE, 'r') as project_file:
                 data = json.load(project_file)
-                name = data.get('name')
+                name = data['name']
         except:
             return self.UNTITLED_NAME
 
@@ -51,7 +51,7 @@ class Command:
 
         if not titles_input:
             print(
-                '{info}Empty item ignored{reset}'
+                '{info}Empty item ignored.{reset}'
                 .format(
                     info=Fore.INFO,
                     reset=Style.RESET_ALL,
@@ -66,7 +66,7 @@ class Command:
     def cancel_command(self):
         """Cancels the current command"""
         print(
-            '\n{fail}{command}{reset} canceled'
+            '\n{fail}{command}{reset} canceled.'
             .format(
                 command=self.get_command_name(),
                 fail=Fore.FAIL,
@@ -105,7 +105,6 @@ class Command:
             sys.exit()
 
         from todo.commands.init import Init
-
         Init.run()
 
 
@@ -122,7 +121,7 @@ class Command:
                 )
         except:
             print(
-                '{fail}An error has occured while updating the project{reset}'
+                '{fail}An error has occured while updating the project.{reset}'
                 .format(
                     fail=Fore.FAIL,
                     reset=Style.RESET_ALL,

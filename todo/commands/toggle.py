@@ -50,9 +50,9 @@ class ToggleCommand(Command):
             self.cancel_command()
         except KeyError:
             print(
-                '{fail}No items in the project{reset}'
+                '{warning}No items in the project.{reset}'
                 .format(
-                    fail=Fore.WARNING,
+                    warning=Fore.WARNING,
                     reset=Style.RESET_ALL,
                 )
             )
@@ -65,7 +65,7 @@ class ToggleCommand(Command):
 
         if not 'todos' in new_data:
             print(
-                '{warning}No todo idems{reset}'
+                '{warning}No todo idems.{reset}'
                 .format(
                     warning=Fore.WARNING,
                     reset=Style.RESET_ALL,
@@ -80,9 +80,9 @@ class ToggleCommand(Command):
                 self.handle_search(todos, item_found)
         else:
             print(
-                '{fail}Unknown todo item{reset}'
+                '{warning}Unknown todo item.{reset}'
                 .format(
-                    fail=Fore.WARNING,
+                    warning=Fore.WARNING,
                     reset=Style.RESET_ALL,
                 )
             )
@@ -105,7 +105,6 @@ class ToggleCommand(Command):
             new_todos = self.update_todos(data)
         else:
             new_todos = self.open_list(data, name)
-
 
         new_data = {
             'name': name,

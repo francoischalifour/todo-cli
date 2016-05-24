@@ -37,7 +37,6 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
             sys.exit(1)
 
     checked = lambda i: i.get('done')
-    items_sorted = sorted(items, key=checked)
 
     def get_action(subtitle):
         try:
@@ -66,6 +65,7 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
         offset_y = 5
 
         while True:
+            items_sorted = sorted(items, key=checked)
             no_items = len(items) if len(items) < 10 else 10
             screen.refresh()
 
