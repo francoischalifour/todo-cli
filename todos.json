@@ -2,24 +2,8 @@
     "name": "todo",
     "todos": [
         {
-            "done": false,
-            "title": "Flag management"
-        },
-        {
-            "done": false,
-            "title": "Add parser"
-        },
-        {
-            "done": true,
-            "title": "Make executable"
-        },
-        {
             "done": true,
             "title": "List"
-        },
-        {
-            "done": true,
-            "title": "Menu interface"
         },
         {
             "done": true,
@@ -28,6 +12,22 @@
         {
             "done": true,
             "title": "Toggle"
+        },
+        {
+            "done": true,
+            "title": "Menu interface"
+        },
+        {
+            "done": true,
+            "title": "Make executable"
+        },
+        {
+            "done": false,
+            "title": "Add parser"
+        },
+        {
+            "done": false,
+            "title": "Flag management"
         }
     ]
 }

@@ -9,7 +9,7 @@ from todo.utils.styles import Fore, Style
 
 
 class UncheckCommand(CheckCommand):
-    def check_item(self, item):
+    def check_by_item(self, item):
         """Unchecks an item"""
         item_toggled = item.copy()
         item_toggled['done'] = False

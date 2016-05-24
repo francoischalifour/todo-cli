@@ -15,18 +15,18 @@ class ToggleCommand(Command):
         return 'Toggle items'
 
 
-    def handle_click(self, item_index, items):
+    def handle_click(self, todos, item_index):
         """Makes a toggled copy the item clicked"""
-        items_toggled = items.copy()
-        status = items_toggled[item_index]['done']
-        items_toggled[item_index]['done'] = not status
-        return items_toggled
+        todos_toggled = todos.copy()
+        status = todos[item_index]['done']
+        todos_toggled[item_index]['done'] = not status
+        return todos_toggled
 
 
     def handle_search(self, todos, item):
         """Toggles the item found"""
-        todos.remove(item)
-        todos.append(self.check_by_item(item))
+        item_index = todos.index(item)
+        todos[item_index] = self.check_by_item(item)
 
 
     def check_by_item(self, item):
@@ -39,12 +39,11 @@ class ToggleCommand(Command):
 
     def open_list(self, data, name):
         """Open the menu to toggle items"""
-        checked = lambda i: i.get('done')
         try:
             return show_options(
                 name,
                 self.get_subtitle(),
-                sorted(data['todos'], key=checked),
+                data['todos'],
                 self.handle_click
             )
         except KeyboardInterrupt:
@@ -61,35 +60,35 @@ class ToggleCommand(Command):
 
 
     def update_todos(self, data):
-            new_data = data.copy()
-            item_titles = self.get_titles_input()
+        new_data = data.copy()
+        item_titles = self.get_titles_input()
 
-            if not 'todos' in new_data:
-                print(
-                    '{warning}No todo idems{reset}'
-                    .format(
-                        warning=Fore.WARNING,
-                        reset=Style.RESET_ALL,
-                    )
+        if not 'todos' in new_data:
+            print(
+                '{warning}No todo idems{reset}'
+                .format(
+                    warning=Fore.WARNING,
+                    reset=Style.RESET_ALL,
                 )
-                sys.exit()
+            )
+            sys.exit()
 
-            todos = new_data['todos']
-            items_matching = [ item for item in todos if item['title'] in item_titles ]
-            if items_matching:
-                for item_found in items_matching:
-                    self.handle_search(todos, item_found)
-            else:
-                print(
-                    '{fail}Unknown todo item{reset}'
-                    .format(
-                        fail=Fore.WARNING,
-                        reset=Style.RESET_ALL,
-                    )
+        todos = new_data['todos']
+        items_matching = [ item for item in todos if item['title'] in item_titles ]
+        if items_matching:
+            for item_found in items_matching:
+                self.handle_search(todos, item_found)
+        else:
+            print(
+                '{fail}Unknown todo item{reset}'
+                .format(
+                    fail=Fore.WARNING,
+                    reset=Style.RESET_ALL,
                 )
-                sys.exit()
+            )
+            sys.exit()
 
-            return todos
+        return todos
 
 
     def run(self):

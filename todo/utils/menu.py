@@ -13,6 +13,9 @@ SPACE_KEY = 32
 def show_options(title=None, subtitle=None, items=[], callback=None):
     screen = curses.initscr()
 
+    checked = lambda i: i.get('done')
+    items_sorted = sorted(items, key=checked)
+
     def get_action(subtitle):
         try:
             return subtitle.split(' ')[0].lower()
@@ -48,7 +51,7 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
 
             pos = 0
 
-            for item in items[:10]:
+            for item in items_sorted[:10]:
                 is_done = item.get('done')
                 status = ' ✓ ' if is_done else ' x '
 
@@ -83,7 +86,8 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
             elif key == curses.KEY_UP:
                 current_pos = current_pos - 1 if current_pos > 0 else no_items - 1
             elif key == SPACE_KEY:
-                items = callback(current_pos, items)
+                item_index = items.index(items_sorted[current_pos])
+                items = callback(items, item_index)
             elif key in EXIT_KEYS:
                 return items
     finally:
