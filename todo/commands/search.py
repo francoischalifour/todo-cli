@@ -23,7 +23,7 @@ class SearchCommand(ListCommand):
         """Prints the result of the query"""
         if not todos:
             print(
-                '{info}No item found for "{query}".{reset}'
+                '{info}No item found for "{query}"{reset}'
                 .format(
                     query=self.get_command_attributes(),
                     info=Fore.INFO,
@@ -35,7 +35,7 @@ class SearchCommand(ListCommand):
 
             no_items = len(todos)
             print(
-                '{info}{no_items:>2} {items} found.{reset}'
+                '{info}{no_items:>2} {items} found{reset}'
                 .format(
                     no_items=no_items,
                     items=('items' if no_items > 1 else 'item'),

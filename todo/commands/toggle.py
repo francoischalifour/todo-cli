@@ -43,7 +43,7 @@ class ToggleCommand(Command):
 
 
     def open_list(self, data, name):
-        """Open the interactive menu to toggle the items"""
+        """Opens the interactive menu to toggle the items"""
         if len(data['todos']) == 0:
             raise KeyError
 
@@ -63,28 +63,33 @@ class ToggleCommand(Command):
         Function called when the user types the items' names"""
         new_data = data.copy()
         items_titles = self.get_titles_input()
+        options_all = ['-a', '--all']
         todos = new_data['todos']
 
-        items_matching = [ item for item in todos if item['title'] in items_titles ]
-        if items_matching:
-            for item_found in items_matching:
-                todos = self.handle_search(todos, item_found)
+        if items_titles[0].lower() in options_all:
+            for item in todos:
+                todos = self.handle_search(todos, item)
+        else:
+            items_matching = [ item for item in todos if item['title'] in items_titles ]
+            if items_matching:
+                for item_found in items_matching:
+                    todos = self.handle_search(todos, item_found)
 
-        titles_matching = [ item['title'] for item in items_matching ]
-        items_not_found = [ item for item in items_titles if item not in titles_matching ]
-        if items_not_found:
-            print(
-                '{info}Unknown {items_print}: {items}.{reset}'
-                .format(
-                    info=Fore.INFO,
-                    reset=Style.RESET_ALL,
-                    items_print=('items' if len(items_not_found) > 1 else 'item'),
-                    items=', '.join(items_not_found),
+            titles_matching = [ item['title'] for item in items_matching ]
+            items_not_found = [ item for item in items_titles if item not in titles_matching ]
+            if items_not_found:
+                print(
+                    '{info}Unknown {items_print}: {items}{reset}'
+                    .format(
+                        info=Fore.INFO,
+                        reset=Style.RESET_ALL,
+                        items_print=('items' if len(items_not_found) > 1 else 'item'),
+                        items=', '.join(items_not_found),
+                    )
                 )
-            )
 
-        if not items_matching:
-            sys.exit()
+            if not items_matching:
+                sys.exit()
 
         return todos
 
