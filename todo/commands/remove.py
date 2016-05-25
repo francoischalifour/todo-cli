@@ -23,8 +23,10 @@ class RemoveCommand(ToggleCommand):
 
 
     def handle_search(self, todos, item):
-        """Removes the item found"""
-        todos.remove(item)
+        """Returns the todo list without the given item"""
+        todos_removed = todos.copy()
+        todos_removed.remove(item)
+        return todos_removed
 
 
 Remove = RemoveCommand()

@@ -49,8 +49,6 @@ class SearchCommand(ListCommand):
         try:
             with open(self.PROJECT_FILE, 'r') as project_file:
                 data = json.load(project_file)
-                name = data['name']
-                todos = data['todos']
         except FileNotFoundError:
             self.project_not_found()
         except:
@@ -62,6 +60,9 @@ class SearchCommand(ListCommand):
                 )
             )
             sys.exit(1)
+
+        try: todos = data['todos']
+        except: todos = []
 
         todos_found = self.get_matches(self.get_command_attributes(), todos)
 

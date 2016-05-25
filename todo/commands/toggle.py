@@ -15,30 +15,38 @@ class ToggleCommand(Command):
         return 'Toggle items'
 
 
-    def handle_click(self, todos, item_index):
-        """Makes a toggled copy the item clicked"""
-        todos_toggled = todos.copy()
-        status = todos[item_index]['done']
-        todos_toggled[item_index]['done'] = not status
-        return todos_toggled
-
-
-    def handle_search(self, todos, item):
-        """Toggles the item found"""
-        item_index = todos.index(item)
-        todos[item_index] = self.check_by_item(item)
-
-
     def check_by_item(self, item):
-        """Makes a toggled copy of the item"""
+        """Returns a toggled copy of the item"""
         item_toggled = item.copy()
-        status = item_toggled['done']
+        status = item['done']
         item_toggled['done'] = not status
         return item_toggled
 
 
+    def handle_click(self, todos, item_index):
+        """Returns a copy of the todos with the toggled item clicked
+        Function called when the user select the item in the interactive menu"""
+        todos_toggled = todos.copy()
+        item_to_toggle = todos[item_index]
+        todos_toggled[item_index] = self.check_by_item(item_to_toggle)
+        return todos_toggled
+
+
+    def handle_search(self, todos, item):
+        """Returns a copy of the todos with the toggled item found
+        Function called when the item title has been typed in the command line"""
+        todos_toggled = todos.copy()
+        item_index = todos_toggled.index(item)
+        item_to_toggle = todos_toggled[item_index]
+        todos_toggled[item_index] = self.check_by_item(item_to_toggle)
+        return todos_toggled
+
+
     def open_list(self, data, name):
-        """Open the menu to toggle items"""
+        """Open the interactive menu to toggle the items"""
+        if len(data['todos']) == 0:
+            raise KeyError
+
         try:
             return show_options(
                 name,
@@ -48,44 +56,34 @@ class ToggleCommand(Command):
             )
         except KeyboardInterrupt:
             self.cancel_command()
-        except KeyError:
-            print(
-                '{warning}No items in the project.{reset}'
-                .format(
-                    warning=Fore.WARNING,
-                    reset=Style.RESET_ALL,
-                )
-            )
-            sys.exit()
 
 
     def update_todos(self, data):
+        """Returns the new todo list with the toggled items typed by the user
+        Function called when the user types the items' names"""
         new_data = data.copy()
-        item_titles = self.get_titles_input()
-
-        if not 'todos' in new_data:
-            print(
-                '{warning}No todo idems.{reset}'
-                .format(
-                    warning=Fore.WARNING,
-                    reset=Style.RESET_ALL,
-                )
-            )
-            sys.exit()
-
+        items_titles = self.get_titles_input()
         todos = new_data['todos']
-        items_matching = [ item for item in todos if item['title'] in item_titles ]
+
+        items_matching = [ item for item in todos if item['title'] in items_titles ]
         if items_matching:
             for item_found in items_matching:
-                self.handle_search(todos, item_found)
-        else:
+                todos = self.handle_search(todos, item_found)
+
+        titles_matching = [ item['title'] for item in items_matching ]
+        items_not_found = [ item for item in items_titles if item not in titles_matching ]
+        if items_not_found:
             print(
-                '{warning}Unknown todo item.{reset}'
+                '{info}Unknown {items_print}: {items}.{reset}'
                 .format(
-                    warning=Fore.WARNING,
+                    info=Fore.INFO,
                     reset=Style.RESET_ALL,
+                    items_print=('items' if len(items_not_found) > 1 else 'item'),
+                    items=', '.join(items_not_found),
                 )
             )
+
+        if not items_matching:
             sys.exit()
 
         return todos
@@ -95,16 +93,35 @@ class ToggleCommand(Command):
         try:
             with open(self.PROJECT_FILE, 'r') as project_file:
                 data = json.load(project_file)
-                name = data['name']
         except FileNotFoundError:
             self.project_not_found()
-        except:
-            name = self.UNTITLED_NAME
+        except KeyError:
+            print(
+                '{fail}An error has occured while toggling the todos.{reset}'
+                .format(
+                    fail=Fore.FAIL,
+                    reset=Style.RESET_ALL,
+                )
+            )
+            sys.exit(1)
 
-        if self.get_command_attributes():
-            new_todos = self.update_todos(data)
-        else:
-            new_todos = self.open_list(data, name)
+        try: name = data['name']
+        except: name = self.UNTITLED_NAME
+
+        try:
+            if self.get_command_attributes():
+                new_todos = self.update_todos(data)
+            else:
+                new_todos = self.open_list(data, name)
+        except KeyError:
+            print(
+                '{warning}No items in the project.{reset}'
+                .format(
+                    warning=Fore.WARNING,
+                    reset=Style.RESET_ALL,
+                )
+            )
+            sys.exit()
 
         new_data = {
             'name': name,

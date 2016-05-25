@@ -14,7 +14,7 @@ long_description = read('README.md')
 setup(
     name='todo',
     version='0.0.1',
-    description='Command line tool to manage To-Do lists',
+    description='Command-line tool to manage To-Do lists',
     long_description=long_description,
     keywords='todo list task productivity project management',
     author='Francois Chalifour',

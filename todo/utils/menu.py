@@ -67,6 +67,9 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
         while True:
             items_sorted = sorted(items, key=checked)
             no_items = len(items) if len(items) < 10 else 10
+            if no_items == 0:
+                return items
+
             screen.refresh()
 
             screen.addstr(2, 7, title, curses.A_BOLD | highlighted)
@@ -109,8 +112,11 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
             elif key == curses.KEY_UP:
                 current_pos = current_pos - 1 if current_pos > 0 else no_items - 1
             elif key == SPACE_KEY:
-                item_index = items.index(items_sorted[current_pos])
-                items = callback(items, item_index)
+                try:
+                    item_index = items.index(items_sorted[current_pos])
+                    items = callback(items, item_index)
+                except:
+                    pass
             elif key in EXIT_KEYS:
                 return items
     finally:

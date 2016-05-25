@@ -64,7 +64,7 @@ class ListCommand(Command):
             no_items = len(todos)
             no_checked = len([t for t in todos if t['done'] ])
             print(
-                '{info}{no_items:>2} items: {no_checked} done, {no_unchecked} undone{reset}'
+                '{info}{no_items:>2} items: {no_checked} completed, {no_unchecked} left{reset}'
                 .format(
                     no_items=no_items,
                     no_checked=no_checked,
@@ -79,8 +79,6 @@ class ListCommand(Command):
         try:
             with open(self.PROJECT_FILE, 'r') as project_file:
                 data = json.load(project_file)
-                name = data['name']
-                todos = data['todos']
         except FileNotFoundError:
             self.ask_create_project()
             return
@@ -93,6 +91,12 @@ class ListCommand(Command):
                 )
             )
             sys.exit(1)
+
+        try: name = data['name']
+        except: name = self.UNTITLED_NAME
+
+        try: todos = data['todos']
+        except: todos = []
 
         self.print_project_name(name)
         self.print_list(todos)
