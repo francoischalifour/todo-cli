@@ -1,138 +1,136 @@
 # Todo CLI
 
-> *Todo* is a command-line tool to manage the To-Do lists of your projects.
+> Command-line tool to manage the To-Do lists of your projects
 
-![Todo workflow](https://cloud.githubusercontent.com/assets/6137112/15512100/8da8cc10-21de-11e6-9d16-3d41654aaa7d.gif)
+![Todo workflow](https://cloud.githubusercontent.com/assets/6137112/15577881/94d72140-235e-11e6-9f6d-68393c515a33.gif)
 
 *Built with Python3.*
 
 ## Elevator Pitch
 
-*Todo* exists to bring all the needed functionalities for simple project management to a terminal. No graphical interface is needed; this tool is easy enough to work with to improve your workflow.
+*Todo* exists to bring all the needed functionalities for simple project management to the terminal. No graphical interface is needed; this tool is easy enough to use to improve your workflow.
 
-![Todo screenshot](https://cloud.githubusercontent.com/assets/6137112/15250305/732b4056-1924-11e6-8609-d1918e902b4b.png)
+![Todo screenshot](https://cloud.githubusercontent.com/assets/6137112/15577612/8a2cac98-235d-11e6-9e62-520a1210f14d.png)
+
+## Usage
+
+### Clone the repo
+
+```console
+$ git clone https://github.com/francoischalifour/todo-cli
+```
+
+### Create a virtual environment (optional)
+
+If you use several Python versions on your computer, create a virtual environment with the Python 3 interpreter:
+
+```console
+$ virtualenv -p python3 venv
+```
+
+Activate the new environment:
+
+```console
+$ source venv/bin/activate
+```
+
+### Install with [*pip*](https://github.com/pypa/pip)
+
+```console
+$ pip install <path to the todo-cli folder>
+```
+
+### Init a Todo project
+
+```console
+$ todo init
+Project name: (moody-app) Moody
+The project Moody has been created.
+```
 
 ## Commands
 
 ### Create a new project
 
-```sh
-todo init
+```console
+$ todo init
 ```
 
 ### Delete an existing project
 
-```sh
-todo delete
+```console
+$ todo delete
 ```
 
 ### Rename a project
 
-```sh
-todo rename "New name"
+```console
+$ todo rename "New name"
 ```
 
 ### Add a task
 
-```sh
-todo add "Name of the task"
+```console
+$ todo add "Name of the task"
 ```
 
 You can add several tasks and don't need to add quotes:
 
-```sh
-todo add "Task 1", Task 2, "Task 3"
+```console
+$ todo add "Task 1", Task 2, "Task 3"
 ```
 
 ### Remove a task
 
 To remove a specific task by name:
 
-```sh
-todo remove "Name of the task"
+```console
+$ todo remove "Name of the task"
 ```
 
-To remove a task with an interactive menu:
+To remove a task with an interactive menu (Unix only):
 
-```sh
-todo remove
+```console
+$ todo remove
 ```
 
 ### Check a task
 
-```sh
-todo check "Name of the task"
+```console
+$ todo check "Name of the task"
 ```
 
 ### Uncheck a task
 
-```sh
-todo uncheck "Name of the task"
+```console
+$ todo uncheck "Name of the task"
 ```
 
 ### Toggle a task
 
 To toggle a specific task by name:
 
-```sh
-todo toggle "Name of the task"
+```console
+$ todo toggle "Name of the task"
 ```
 
-To toggle a task with an interactive menu:
+To toggle a task with an interactive menu (Unix only):
 
-```sh
-todo toggle
+```console
+$ todo toggle
 ```
 
 ### List all tasks
 
-```sh
-todo list
+```console
+$ todo list
 ```
 
 ### Search tasks
 
-```sh
-todo search "keyword"
+```console
+$ todo search "keyword"
 ```
-
-## Install
-
-### 1. Clone the repo
-
-```sh
-git clone https://github.com/francoischalifour/todo-cli
-```
-
-### 2. Install with [*pip*](https://github.com/pypa/pip)
-
-Install the program:
-
-```sh
-pip install -e [path to the TODO folder]
-```
-
-### 3. Optional: *if you use several Python versions*
-
-Create a virtual environment with the Python 3 interpreter:
-
-```sh
-virtualenv -p python3 venv
-```
-
-Activate the new environment:
-
-```sh
-source venv/bin/activate
-```
-
-Install the program in your project environment:
-
-```sh
-pip install -e [path to the TODO folder]
-```
-
-You're ready to go!
 
 ## License
 
