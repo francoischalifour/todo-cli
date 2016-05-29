@@ -20,7 +20,7 @@ class InitCommand(Command):
                 .format(
                     name=self.get_project_name(),
                     green=Fore.GREEN,
-                    warning=Fore.YELLOW,
+                    warning=Fore.WARNING,
                     reset=Style.RESET_ALL,
                 )
             )

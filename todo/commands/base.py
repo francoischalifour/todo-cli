@@ -31,7 +31,7 @@ class Command:
     def get_command_name(self):
         """Returns the typed command"""
         try:
-            return '{} {}'.format(sys.argv[0], sys.argv[1])
+            return '{} {}'.format(sys.argv[0].split('/')[-1], sys.argv[1])
         except:
             return sys.argv[0]
 
@@ -51,7 +51,7 @@ class Command:
 
         if not titles_input:
             print(
-                '{info}Empty item ignored.{reset}'
+                '{info}Empty item ignored{reset}'
                 .format(
                     info=Fore.INFO,
                     reset=Style.RESET_ALL,
@@ -66,7 +66,7 @@ class Command:
     def cancel_command(self):
         """Cancels the current command"""
         print(
-            '\n{fail}{command}{reset} canceled.'
+            '\n{fail}{command}{reset} canceled'
             .format(
                 command=self.get_command_name(),
                 fail=Fore.FAIL,
@@ -79,7 +79,7 @@ class Command:
     def project_not_found(self):
         """Exits the program if no project found"""
         print(
-            '{fail}No project found.{reset}'
+            '{fail}No project found{reset}'
             .format(
                 fail=Fore.FAIL,
                 reset=Style.RESET_ALL,

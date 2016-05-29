@@ -16,7 +16,7 @@ class DeleteCommand(Command):
             .format(
                 name=name,
                 green=Fore.GREEN,
-                warning=Fore.YELLOW,
+                warning=Fore.WARNING,
                 reset=Style.RESET_ALL,
             )
         )

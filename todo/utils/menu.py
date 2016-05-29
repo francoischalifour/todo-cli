@@ -4,9 +4,9 @@ Interactive menu to select items
 """
 
 try:
-        import curses
+    import curses
 except ImportError:
-        pass
+    pass
 
 
 EXIT_KEYS = [113, 27, 127, 10]
@@ -15,26 +15,26 @@ SPACE_KEY = 32
 
 def show_options(title=None, subtitle=None, items=[], callback=None):
     try:
-            screen = curses.initscr()
+        screen = curses.initscr()
     except NameError:
-            import sys
-            from todo.utils.styles import Fore, Style
-            print(
+        import sys
+        from todo.utils.styles import Fore, Style
+        print(
 '''
 {fail}{bold}\tSorry!{reset}
 {warning}This command is not supported by your system.
 {info}Learn more: {blue}https://github.com/francoischalifour/todo-cli{reset}
 '''
-                .format(
-                    fail=Fore.FAIL,
-                    bold=Style.BOLD,
-                    warning=Fore.WARNING,
-                    info=Fore.INFO,
-                    blue=Fore.BLUE,
-                    reset=Style.RESET_ALL,
-                )
+            .format(
+                fail=Fore.FAIL,
+                bold=Style.BOLD,
+                warning=Fore.WARNING,
+                info=Fore.INFO,
+                blue=Fore.BLUE,
+                reset=Style.RESET_ALL,
             )
-            sys.exit(1)
+        )
+        sys.exit(1)
 
     checked = lambda i: i.get('done')
 
