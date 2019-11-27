@@ -107,7 +107,7 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
 
             screen.erase()
 
-            elif key in (curses.KEY_DOWN, ord('j')):
+            if key in (curses.KEY_DOWN, ord('j')):
                 current_pos = current_pos + 1 if current_pos + 1 < no_items else 0
             elif key in (curses.KEY_UP, ord('k')):
                 current_pos = current_pos - 1 if current_pos > 0 else no_items - 1
