@@ -49,7 +49,13 @@ def show_options(title=None, subtitle=None, items=[], callback=None):
         curses.use_default_colors()
 
         curses.noecho()
-        curses.curs_set(0)
+
+        if hasattr(curses, 'curs_set'):
+            try:
+                curses.curs_set(0)
+            except:
+                pass
+
         screen.keypad(1)
 
         curses.init_pair(1, curses.COLOR_BLUE, -1)
