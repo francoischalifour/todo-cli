@@ -60,7 +60,7 @@ class Command:
             sys.exit()
 
         titles = titles_input.split(',')
-        return [ title.strip() for title in titles if title is not '' ]
+        return [ title.strip() for title in titles if title != '' ]
 
 
     def cancel_command(self):
